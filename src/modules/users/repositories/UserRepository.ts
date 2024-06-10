@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { User } from "../models/User";
 import { AppDataSource } from "../../../database";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 import { generateAccessToken } from "../../../jwt";
 
 interface CreateUserDTO {
@@ -10,7 +10,7 @@ interface CreateUserDTO {
 }
 
 export class UserRepository {
-    private users: Repository<User>;
+    users: Repository<User>;
 
     private static INSTANCE: UserRepository;
 
@@ -30,7 +30,7 @@ export class UserRepository {
         return await this.users.find();
     }
 
-    async create({ username, password }: CreateUserDTO): Promise<void> {
+    async create({ username, password }: CreateUserDTO): Promise<User> {
         const hashPassword = await hash(password, 10);
         const token = generateAccessToken(username);
 
@@ -42,6 +42,8 @@ export class UserRepository {
         });
 
         await this.users.save(user);
+
+        return user;
     }
 
     async findByUsername(username: string): Promise<User> {
@@ -50,5 +52,17 @@ export class UserRepository {
 
     async findById(_id: string): Promise<User> {
         return await this.users.findOne({ where: { _id } });
+    }
+
+    async findByToken(token: string): Promise<User> {
+        return await this.users.findOne({ where: { token } });
+    }
+
+    async update(user: User): Promise<void> {
+        await this.users.update({ username: user.username }, user);
+    }
+
+    async delete(user: User): Promise<void> {
+        await this.users.delete({ username: user.username });
     }
 }

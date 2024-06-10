@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { CreateUserUseCase } from "./CreateUserUseCase";
+import { User } from "../../models/User";
+import { generateAccessToken } from "../../../../jwt";
 
 export class CreateUserController {
     constructor(private createUserUseCase: CreateUserUseCase) {}
@@ -7,9 +9,13 @@ export class CreateUserController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { username, password } = request.body;
 
-        await this.createUserUseCase.execute({ username, password })
-                .catch(error => response.status(400).json({ error: error.message }));
+        return await this.createUserUseCase.execute({ username, password })
+            .catch(error => response.status(400).json({ error: error.message }))
+            .then(() => {
+                // Crazy workaround
+                const token = generateAccessToken(username);
 
-        return response.status(201).send();
+                return response.status(201).json({ token });
+            });
     }
 }

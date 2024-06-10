@@ -10,7 +10,7 @@ export class IndexUserController {
 
         return await this.indexUserUseCase.execute(username)
                 .then(user => response.status(200).json({ user: this.serialize(user) }))
-                .catch(error => response.status(404).json({ error: "User not found" }));
+                .catch(() => response.status(404).json({ error: "User not found" }));
     }
 
     private serialize(user: User): object {
@@ -19,7 +19,7 @@ export class IndexUserController {
             username: user.username,
             password: user.password,
             created_at: user.created_at,
-            token: "[REDACTED]"
+            token: user.token
         }
     }
 }
