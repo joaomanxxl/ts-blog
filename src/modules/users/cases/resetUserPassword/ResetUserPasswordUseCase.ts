@@ -1,6 +1,6 @@
 import { compare, hash } from "bcrypt";
+
 import { UserRepository } from "../../repositories/UserRepository";
-import { AppDataSource } from "../../../../database";
 
 interface ResetUserPasswordDTO {
     token: string;

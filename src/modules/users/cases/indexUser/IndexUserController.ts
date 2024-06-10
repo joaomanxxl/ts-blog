@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { IndexUserUseCase } from "./IndexUserUseCase";
 import { User } from "../../models/User";
 

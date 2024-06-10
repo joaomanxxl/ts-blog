@@ -1,7 +1,8 @@
 import { Router } from "express";
+
+import { authenticateToken } from "../jwt";
 import { createUserController } from "../modules/users/cases/createUser";
 import { indexUserController } from "../modules/users/cases/indexUser";
-import { authenticateToken } from "../jwt";
 import { indexUsersController } from "../modules/users/cases/indexUsers";
 import { resetUserPasswordController } from "../modules/users/cases/resetUserPassword";
 import { deleteUserController } from "../modules/users/cases/deleteUser";

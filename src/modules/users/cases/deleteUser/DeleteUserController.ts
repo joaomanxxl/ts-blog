@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { DeleteUserUseCase } from "./DeleteUserUseCase";
 
 export class DeleteUserController {

@@ -1,4 +1,5 @@
 import { Response } from "express";
+
 import { IndexUsersUseCase } from "./IndexUsersUseCase";
 
 export class IndexUsersController {

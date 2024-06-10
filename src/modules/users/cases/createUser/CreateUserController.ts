@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
+
 import { CreateUserUseCase } from "./CreateUserUseCase";
-import { User } from "../../models/User";
 import { generateAccessToken } from "../../../../jwt";
 
 export class CreateUserController {
