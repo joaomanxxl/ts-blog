@@ -11,7 +11,7 @@ export class DeleteUserUseCase {
     async execute({ token, username }: DeleteUserDTO): Promise<void> {
         const user = await this.userRepository.findByToken(token);
 
-        if (user.username !== "akkih") {
+        if (user.username !== process.env.ADMIN_USERNAME) {
             throw new Error("Not authorized");
         }
 
