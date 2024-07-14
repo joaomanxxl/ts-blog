@@ -1,8 +1,13 @@
-# ts-blog
+# ts-blog (wip)
 A simple but efficient blog back-end implementation made using TypeScript, Express, TypeORM and MongoDB.
 
 ## purpose
 The whole point of this back-end application is to learn more about JWT, authentication, and back-end itself.
+
+## roadmap
+- [x] Create user logic
+- [ ] Create articles logic
+- [ ] Polish endpoints
 
 ## endpoints
 You can view details on how they work at the `src/routes/index.ts` file. 
